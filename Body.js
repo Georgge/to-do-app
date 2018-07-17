@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { View, Text, StyleSheet, FlatList } from 'react-native';
+import Task from './Task';
 
 class Body extends Component {
   render() {
@@ -9,7 +10,7 @@ class Body extends Component {
         <FlatList
           data={this.props.tasks}
           renderItem={ 
-            ({item}) => <Text> {item.text} </Text>
+            ({item}) => <Task item={item.text} />
           }
         />
       </View>

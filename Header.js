@@ -5,12 +5,12 @@ class Header extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text> header </Text>
         <TextInput
           placeholder="Write here"
           onChangeText={this.props.changeText}
           onSubmitEditing={this.props.add}
           value={this.props.text}
+          style={styles.textInp}
         />
       </View>
     );
@@ -24,6 +24,9 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     backgroundColor: '#00796b',
     paddingHorizontal: 16,
+  },
+  textInp: {
+    fontSize: 24,
   },
 });
 
