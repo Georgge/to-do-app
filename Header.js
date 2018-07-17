@@ -8,8 +8,9 @@ class Header extends Component {
         <Text> header </Text>
         <TextInput
           placeholder="Write here"
-          style={styles.textInput}
-          onChangeText={ this.props.changeText }
+          onChangeText={this.props.changeText}
+          onSubmitEditing={this.props.add}
+          value={this.props.text}
         />
       </View>
     );
@@ -22,9 +23,6 @@ const styles = StyleSheet.create({
     flex: 2,
     justifyContent: 'center',
     backgroundColor: '#00796b',
-    paddingHorizontal: 16,
-  },
-  textInput: {
     paddingHorizontal: 16,
   },
 });
