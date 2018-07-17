@@ -16,12 +16,11 @@ export default class App extends React.Component {
     this.setState({ text: value });
   }
 
-  addTask = (task) => {
+  addTask = () => {
     this.setState({
-      tasks: [...this.state.tasks, task],
+      tasks: [...this.state.tasks, { text: this.state.text, key: Date.now }],
       text: "",
     });
-    console.log(this.state.tasks.length);
   }
 
   render() {
@@ -35,7 +34,7 @@ export default class App extends React.Component {
         <Text>
           { this.state.text } 
         </Text>
-        <Body />
+        <Body tasks={this.state.tasks}/>
       </View>
     );
   }

@@ -1,11 +1,17 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, FlatList } from 'react-native';
 
 class Body extends Component {
   render() {
     return (
       <View style={styles.container}>
         <Text> body </Text>
+        <FlatList
+          data={this.props.tasks}
+          renderItem={ 
+            ({item}) => <Text> {item.text} </Text>
+          }
+        />
       </View>
     );
   }
