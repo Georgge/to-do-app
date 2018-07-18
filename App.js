@@ -18,8 +18,17 @@ export default class App extends React.Component {
 
   addTask = () => {
     this.setState({
-      tasks: [...this.state.tasks, { text: this.state.text, key: Date.now }],
+      tasks: [...this.state.tasks, { text: this.state.text, key: Date.now() }],
       text: "",
+    });
+  }
+
+  deleteTask = (id) => {
+    const newTaks = this.state.tasks.filter((task) => {
+      return task.key != id;
+    });
+    this.setState({
+      tasks: newTaks,
     });
   }
 
@@ -31,10 +40,7 @@ export default class App extends React.Component {
           changeText={this.setText} 
           add={this.addTask} 
         />
-        <Text>
-          { this.state.text } 
-        </Text>
-        <Body tasks={this.state.tasks}/>
+        <Body tasks={this.state.tasks} delete={this.deleteTask} />
       </View>
     );
   }
