@@ -1,12 +1,17 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, FlatList } from 'react-native';
+import { View, Text, StyleSheet, FlatList, ActivityIndicator } from 'react-native';
 import Task from './Task';
 
 class Body extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text style={styles.title}> Tasks </Text>
+        {this.props.load &&
+          <ActivityIndicator
+            size='large'
+            color="#8e44ad"
+          />
+        }
         <FlatList
           data={this.props.tasks}
           renderItem={ 

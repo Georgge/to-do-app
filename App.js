@@ -9,6 +9,7 @@ export default class App extends React.Component {
     this.state = {
       text: "",
       tasks: [],
+      load: true,
     };
   }
 
@@ -33,6 +34,9 @@ export default class App extends React.Component {
   getFromPhone = () => {
     AsyncStorage.getItem('@AppCourseUdemy:tasks')
       .then((value) => {
+        this.setState({
+          load: false,
+        });
         if (value !== null) {
           const courrentTaks = JSON.parse(value);
           this.setState({
@@ -69,18 +73,10 @@ export default class App extends React.Component {
       <View style={styles.container}>
         <Header 
           text={this.state.text}
-          changeText={this.setText} 
-          add={this.addTask} 
+          changeText={this.setText}
+          add={this.addTask}
         />
-        <Button
-          title="Save"
-          onPress={() => { this.setInPhone(); }}
-        />
-        <Button
-          title="Recovery"
-          onPress={() => { this.getFromPhone(); }}
-        />
-        <Body tasks={this.state.tasks} delete={this.deleteTask} />
+        <Body tasks={this.state.tasks} delete={this.deleteTask} load={this.state.load} />
       </View>
     );
   }
