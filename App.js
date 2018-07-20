@@ -12,28 +12,16 @@ export default class App extends React.Component {
     };
   }
 
+  componentDidMount() {
+    this.getFromPhone();
+  }
+
   setText = (value) => {
     this.setState({ text: value });
   }
 
-  addTask = () => {
-    this.setState({
-      tasks: [...this.state.tasks, { text: this.state.text, key: Date.now() }],
-      text: "",
-    });
-  }
-
-  deleteTask = (id) => {
-    const newTaks = this.state.tasks.filter((task) => {
-      return task.key != id;
-    });
-    this.setState({
-      tasks: newTaks,
-    });
-  }
-
-  setInPhone = () => {
-    AsyncStorage.setItem('@AppCourseUdemy:nombre', 'jorge')
+  setInPhone = (tasks) => {
+    AsyncStorage.setItem('@AppCourseUdemy:tasks', JSON.stringify(tasks))
       .then((value) => {
         console.log(value);
       })
@@ -43,13 +31,37 @@ export default class App extends React.Component {
   }
 
   getFromPhone = () => {
-    AsyncStorage.getItem('@AppCourseUdemy:nombre')
+    AsyncStorage.getItem('@AppCourseUdemy:tasks')
       .then((value) => {
-        console.log(value);
+        if (value !== null) {
+          const courrentTaks = JSON.parse(value);
+          this.setState({
+            tasks: courrentTaks,
+          });
+        }
       })
       .catch((error) => {
         console.log(error);
       });
+  }
+
+  addTask = () => {
+    const newTasks = [...this.state.tasks, { text: this.state.text, key: Date.now() }];
+    this.setInPhone(newTasks);
+    this.setState({
+      tasks: newTasks,
+      text: "",
+    });
+  }
+
+  deleteTask = (id) => {
+    const newTaks = this.state.tasks.filter((task) => {
+      return task.key != id;
+    });
+    this.setInPhone(newTaks);
+    this.setState({
+      tasks: newTaks,
+    });
   }
 
   render() {
