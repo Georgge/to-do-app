@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Button, View, AsyncStorage } from 'react-native';
 import Header from './Header';
 import Body from './Body';
 
@@ -32,6 +32,26 @@ export default class App extends React.Component {
     });
   }
 
+  setInPhone = () => {
+    AsyncStorage.setItem('@AppCourseUdemy:nombre', 'jorge')
+      .then((value) => {
+        console.log(value);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+
+  getFromPhone = () => {
+    AsyncStorage.getItem('@AppCourseUdemy:nombre')
+      .then((value) => {
+        console.log(value);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+
   render() {
     return (
       <View style={styles.container}>
@@ -39,6 +59,14 @@ export default class App extends React.Component {
           text={this.state.text}
           changeText={this.setText} 
           add={this.addTask} 
+        />
+        <Button
+          title="Save"
+          onPress={() => { this.setInPhone(); }}
+        />
+        <Button
+          title="Recovery"
+          onPress={() => { this.getFromPhone(); }}
         />
         <Body tasks={this.state.tasks} delete={this.deleteTask} />
       </View>
